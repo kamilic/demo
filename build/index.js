@@ -10,7 +10,7 @@ const packageFilePath = path.resolve(__dirname, "../package.json");
 
 function build(type, projectName) {
     return new Promise(function (res, rej) {
-        let execText = `rollup -c ${path.resolve(__filename, "../rollup.prod.js")} --type=${type} --name=${projectName}`;
+        let execText = `rollup -c ${path.resolve(__filename, "../rollup.prod.js")} --type=${type} --projectName=${projectName}`;
         console.log(chalk.cyan(execText));
         cp.exec(execText, (err, stdout, stderr) => {
             if (!err) {
@@ -22,16 +22,13 @@ function build(type, projectName) {
     });
 }
 
-function firstCharacterUpper(str) {
-    return str[0].toUpperCase() + str.slice(1);
-}
 
 function getProjectName() {
     return new Promise((res, rej) => {
         fs.readFile(packageFilePath, (err, data) => {
             if (!err) {
                 let packageJsonObject = JSON.parse(data.toString());
-                res(firstCharacterUpper(packageJsonObject.name));
+                res(packageJsonObject.name);
             } else {
                 rej(err);
             }
