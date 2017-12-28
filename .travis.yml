@@ -7,7 +7,6 @@ install:
   #use stable
   - nvm use stable
 before_script :
-.
   - npm install -g gulp-cli
   - npm install
   - npm install -g codecov
